@@ -1,14 +1,9 @@
 import React from 'react';
 import styles from '../styles/components/Button.module.css';
 
-export default function Button({ children, onClick, disabled, style }) {
+export default function Button({ children, onClick }) {
   return (
-    <button
-      className={styles.button}
-      onClick={onClick}
-      disabled={disabled}
-      style={style}
-    >
+    <button className={styles.button} onClick={onClick}>
       {children}
     </button>
   );

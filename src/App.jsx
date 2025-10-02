@@ -40,7 +40,7 @@ export default function App() {
 
       let data;
       if (fileType === "image") {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/Tools/CheckToolsPresence", {
+        const response = await fetch("http://127.0.0.1:8000/api/v1/Tools/Test", {
           method: "POST",
           body: formData,
         });
@@ -48,7 +48,7 @@ export default function App() {
         const result = await response.json();
         data = result;
       } else {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/Tools/ProcessZip", {
+        const response = await fetch("http://127.0.0.1:8000/api/v1/Tools/TestZip", {
           method: "POST",
           body: formData,
         });
@@ -102,6 +102,7 @@ export default function App() {
 
   return (
     <div className={styles.container}>
+      <div className="background"></div>
       {/* Шаг 1: Ввод табельного номера */}
       {step === 'enterId' && (
         <div className={styles.centered}>
@@ -151,7 +152,11 @@ export default function App() {
           </div>
 
           <div className={styles.frame}>
+            <label htmlFor="fileUpload">
+              {selectedFile ? selectedFile.name : "Выберите файл"}
+            </label>
             <input
+              id="fileUpload"
               type="file"
               accept={fileType === "image" ? "image/*" : ".zip"}
               onChange={e => setSelectedFile(e.target.files[0])}
@@ -178,23 +183,26 @@ export default function App() {
       {step === 'tools' && (
         <div>
           <h2>Распознанные инструменты:</h2>
-          {tools.map((file, idx) => (
-            <div key={idx} style={{ marginBottom: 20 }}>
-              <h4>{file.filename}</h4>
-              <ul>
-                {file.tools.map((t, tidx) => (
-                  <li key={tidx}>
-                    {t.name} {t.confidence ? `(${t.confidence * 100}%)` : ""}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className={styles.scrollBox}>
+            {tools.map((file, idx) => (
+              <div key={idx} style={{ marginBottom: 20 }}>
+                <h4>{file.filename}</h4>
+                <ul>
+                  {file.tools.map((t, tidx) => (
+                    <li key={tidx}>
+                      {t.name} {t.confidence ? `(${t.confidence * 100}%)` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
           <div style={{ textAlign: 'right', marginTop: 20 }}>
             <Button onClick={() => setStep('action')}>Подтвердить список</Button>
           </div>
         </div>
       )}
+
 
 
 
@@ -222,24 +230,27 @@ export default function App() {
             {action === 'take' ? ' получил' : ' сдал'} набор инструментов:
           </p>
 
-          {tools.map((file, idx) => (
-            <div key={idx} style={{ marginBottom: 20 }}>
-              <h4>{file.filename}</h4>
-              <ul>
-                {file.tools.map((t, tidx) => (
-                  <li key={tidx}>
-                    {t.name} {t.confidence ? `(${t.confidence * 100}%)` : ""}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className={styles.scrollBox}>
+            {tools.map((file, idx) => (
+              <div key={idx} style={{ marginBottom: 20 }}>
+                <h4>{file.filename}</h4>
+                <ul>
+                  {file.tools.map((t, tidx) => (
+                    <li key={tidx}>
+                      {t.name} {t.confidence ? `(${t.confidence * 100}%)` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
 
           <div style={{ textAlign: 'right', marginTop: 20 }}>
             <Button onClick={confirmReport}>Согласен</Button>
           </div>
         </div>
       )}
+
 
 
       {/* Кнопка Назад */}
@@ -251,5 +262,6 @@ export default function App() {
         )
       }
     </div >
+    
   );
 }
