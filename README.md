@@ -1,16 +1,43 @@
-# React + Vite
+Tool Recognition Frontend
+=========================
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Фронтенд часть сервиса для распознавания инструментов.
+Написан на React + Vite.
 
-Currently, two official plugins are available:
+Как запустить
+-------------
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Установить зависимости:
+   npm install
 
-## React Compiler
+2. Запустить в режиме разработки:
+   npm run dev
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   По умолчанию проект поднимется на:
+   http://localhost:5173
 
-## Expanding the ESLint configuration
+3. Сборка для продакшна:
+   npm run build
+   npm run preview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Подключение к API
+-----------------
+
+Фронтенд обращается к backend по адресу:
+
+- Backend (ASP.NET / FastAPI): http://localhost:8000/api/v1
+- ML сервис (PyTorch): http://localhost:3000
+
+Эти значения можно вынести в .env и использовать в коде через import.meta.env.
+
+Docker (опционально)
+--------------------
+
+Собрать контейнер:
+   docker build -t tool-frontend .
+
+Запустить:
+   docker run -p 8080:80 tool-frontend
+
+После этого фронт будет доступен по адресу:
+   http://localhost:8080
