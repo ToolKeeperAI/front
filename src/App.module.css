@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+
+.centered {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputField {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.frame {
+  border: 2px dashed var(--color-text-light);
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileBlock {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
+.fileBlock h3 {
+  margin-top: 0;
+  color: #004a97;
+  /* можно взять из брендбука Аэрофлота */
+}
